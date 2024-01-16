@@ -2,7 +2,9 @@ package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import static jakarta.persistence.FetchType.*;
@@ -10,6 +12,7 @@ import static jakarta.persistence.FetchType.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자 protected -> createOrderItem 사용 유도 -> 일관성 유지
 public class OrderItem {
 
     @Id
