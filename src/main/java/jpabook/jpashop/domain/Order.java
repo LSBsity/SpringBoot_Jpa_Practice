@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -14,6 +16,7 @@ import static jakarta.persistence.FetchType.*;
 @Table(name = "orders")
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자 protected -> createOrder 사용 유도 -> 일관성 유지
 public class Order {
 
     @Id
@@ -68,7 +71,8 @@ public class Order {
     //==비즈니스 로직==//
 
     /**
-     * 주문 취소
+     * 주문 취소 <p>
+     * 변경 내역 감지(Dirty Checking)로 인해 변경 시 업데이트 쿼리 실행 - JPA
      */
     public void cancel() {
         if (delivery.getStatus() == DeliveryStatus.COMP) {
